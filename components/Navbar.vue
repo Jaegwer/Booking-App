@@ -1,44 +1,40 @@
 <template>
   <Disclosure as="nav" class="bg-gray" v-slot="{ open }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex h-16 items-center justify-between">
+      <div class="flex h-16 items-center justify-center">
         <div class="flex items-center">
-          <div class="flex-shrink-0">
-            <img
-              class="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-              alt="Your Company"
-            />
-          </div>
           <div class="hidden sm:ml-6 sm:block">
-            <div class="flex space-x-4">
+            <div class="flex items-center space-x-4">
               <NuxtLink
-                to="/AboutUs"
+                v-for="item in data"
+                :key="item.id"
+                :to="item.link"
                 class="rounded-md px-3 py-2 font-medium text-white hover:text-dark-yellow"
-                >Hakkımızda</NuxtLink
               >
-              <NuxtLink
-                to="/PlayList"
-                class="rounded-md px-3 py-2 font-medium text-white hover:text-dark-yellow"
-                >Oyunlar</NuxtLink
-              >
+                <div v-if="!item.icon && item.logo" class="flex-shrink-0">
+                  <img
+                    class="h-8 w-auto"
+                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    alt="Your Company"
+                  />
+                </div>
+                <span v-else-if="item.icon === false">{{ item.name }}</span>
+
+                <div v-else class="flex items-center">
+                  <button
+                    type="button"
+                    class="flex p-2 relative rounded-md bg-white bg-opacity-25 p-1 text-dark-yellow hover:bg-opacity-50"
+                  >
+                    <span class="absolute -inset-1.5" />
+                    <CalendarIcon class="h-6 w-6" aria-hidden="true" />
+                    <span class="">{{ item.name }}</span>
+                  </button>
+                </div>
+              </NuxtLink>
             </div>
           </div>
         </div>
-        <div class="hidden sm:ml-6 sm:block">
-          <div class="flex items-center">
-            <NuxtLink to="/Calendar">
-              <button
-                type="button"
-                class="flex p-2 relative rounded-md bg-white bg-opacity-25 p-1 text-dark-yellow hover:bg-opacity-50"
-              >
-                <span class="absolute -inset-1.5" />
-                <CalendarIcon class="h-6 w-6" aria-hidden="true" />
-                <span class="">Oyun Takvimi</span>
-              </button>
-            </NuxtLink>
-          </div>
-        </div>
+
         <div class="-mr-2 flex sm:hidden">
           <!-- Mobile menu button -->
           <DisclosureButton
@@ -87,7 +83,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import {
   Disclosure,
   DisclosureButton,
@@ -105,12 +101,12 @@ import {
 } from "@heroicons/vue/24/outline";
 const fetchData = async () => {
   const db = getFirestore();
-  const collectionRef = collection(db, 'Navbar');
+  const collectionRef = collection(db, "Navbar");
   const querySnapshot = await getDocs(collectionRef);
 
-  const data = querySnapshot.docs.map(doc => ({
+  const data = querySnapshot.docs.map((doc) => ({
     id: doc.id,
-    ...doc.data()
+    ...doc.data(),
   }));
 
   return data;
@@ -118,6 +114,7 @@ const fetchData = async () => {
 const data = ref([]);
 onMounted(async () => {
   data.value = await fetchData();
+  console.log(data.value);
 });
 </script>
 

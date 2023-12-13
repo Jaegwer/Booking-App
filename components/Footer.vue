@@ -15,18 +15,19 @@
 		  <div class="mt-16  xl:mt-0">
 			<div class="md:grid md:grid-cols-6 md:gap-8">
 			  <div class="col-span-3">
-				<h1 class="font-semibold leading-6 text-white">Company</h1>
 				<ul role="list" class="mt-6 space-y-4">
-				  <li v-for="item in navigation.company" :key="item.name">
-					<a :href="item.href" class="text-sm leading-6 text-white hover:text-dark-yellow">{{ item.name }}</a>
+				  <li v-for="item in data" :key="item.name">
+					<NuxtLink :to="item.link" class="text-sm leading-6 text-white hover:text-dark-yellow">{{ item.name }}</NuxtLink>
 				  </li>
 				</ul>
 			  </div>
 			  <div class="mt-10 md:mt-0 col-span-3">
-				<h1 class=" font-semibold leading-6 text-white">Legal</h1>
+
 				<ul role="list" class="mt-6 space-y-4">
-				  <li v-for="item in navigation.legal" :key="item.name">
-					<a :href="item.href" class="text-sm leading-6 text-white hover:text-dark-yellow">{{ item.name }}</a>
+				  <li >
+					<h1 class=" font-semibold leading-6 text-white">{{ contact.Header }} </h1>
+					<p  class="text-sm leading-6 text-white mt-5">{{ contact.Address }}</p>
+					<p  class="text-sm leading-6 text-white mt-5">{{ contact.Phone }}</p>
 				  </li>
 				</ul>
 			  </div>
@@ -42,13 +43,8 @@
 
   <script setup>
   import { defineComponent, h } from 'vue'
-
+  import { getFirestore, collection, getDocs,doc } from "firebase/firestore";
   const navigation = {
-	company: [
-	  { name: 'Hakkımızda', href: '#' },
-	  { name: 'Haberler', href: '#' },
-	  { name: 'Oyun Takvimi', href: '#' },
-	],
 	legal: [
 	  { name: 'İletişim', href: '#' },
 	  { name: 'lorem', href: '#' },
@@ -83,5 +79,49 @@
 	  },
 	],
   }
+
   const getCurrentYear = () => {return (new Date()).getFullYear()}
+ const fetchData = async () => {
+  const db = getFirestore();
+
+  // Example path: 'firstCollection/firstDocument/secondCollection'
+  const firstCollectionPath = 'Footer';
+  const firstDocumentId = '8o62p8aqdRqOuvp5SfJ6';
+  const secondCollectionPath = 'Links';
+
+  const firstCollectionRef = collection(db, firstCollectionPath);
+  const firstDocumentRef = doc(firstCollectionRef, firstDocumentId);
+  const secondCollectionRef = collection(firstDocumentRef, secondCollectionPath);
+
+  const querySnapshot = await getDocs(secondCollectionRef);
+
+  const data = querySnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }));
+
+  return data;
+};
+const fetchSmt = async () => {
+  const db = getFirestore();
+  const collectionRef = collection(db, "Footer");
+  const querySnapshot = await getDocs(collectionRef);
+
+  const feet = querySnapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  return feet;
+};
+const feet = ref([]);
+const data = ref([]);
+let contact = ref([]);
+onMounted(async () => {
+  data.value = await fetchData();
+  feet.value = await fetchSmt()
+});
+watch(feet, (newFeet) => {
+  contact.value = newFeet[2] || {}; // Update contact with the third item in the array or an empty object
+});
   </script>

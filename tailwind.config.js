@@ -12,7 +12,10 @@ export default {
     extend: {
 		colors:{
 			'gray':'#1E1E20',
-			'black':'#161617'
+			'black':'#161617',
+			'yellow':'#C7AD08',
+			'dark-yellow':'#FFDC00',
+			'light-gray':'#9B9B9B',
 		}
 	},
   },

@@ -12,6 +12,7 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.1.0",
+    "@nuxtjs/dotenv": "^1.4.1",
     "autoprefixer": "^10.4.16",
     "nuxt": "^3.8.2",
     "postcss": "^8.4.32",
@@ -22,6 +23,7 @@
   "dependencies": {
     "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "^2.0.18",
-    "@splidejs/vue-splide": "^0.6.12"
+    "@splidejs/vue-splide": "^0.6.12",
+    "firebase": "^10.7.1"
   }
 }

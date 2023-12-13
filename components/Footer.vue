@@ -1,41 +1,32 @@
 <template>
-	<footer class="bg-gray-900" aria-labelledby="footer-heading">
-	  <h2 id="footer-heading" class="sr-only">Footer</h2>
+	<footer class="bg-gray" aria-labelledby="footer-heading">
 	  <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
 		<div class="xl:grid xl:grid-cols-2 xl:gap-8">
 		  <div class="space-y-8">
 			<img class="h-7" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Company name" />
-			<p class="text-sm leading-6 text-gray-300">Making the world a better place through constructing elegant hierarchies.</p>
+			<p class="text-sm leading-6 text-white">Making the world a better place through constructing elegant hierarchies.</p>
 			<div class="flex space-x-6">
-			  <a v-for="item in navigation.social" :key="item.name" :href="item.href" class="text-gray-500 hover:text-gray-400">
+			  <a v-for="item in navigation.social" :key="item.name" :href="item.href" class="text-yellow">
 				<span class="sr-only">{{ item.name }}</span>
-				<component :is="item.icon" class="h-6 w-6" aria-hidden="true" />
+				<component :is="item.icon" class="h-12 w-12" aria-hidden="true" />
 			  </a>
 			</div>
 		  </div>
 		  <div class="mt-16  xl:mt-0">
-			<div class="md:grid md:grid-cols-9 md:gap-8">
-			  <div class="mt-10 md:mt-0 col-span-3">
-				<h3 class="text-sm font-semibold leading-6 text-white">Support</h3>
-				<ul role="list" class="mt-6 space-y-4">
-				  <li v-for="item in navigation.support" :key="item.name">
-					<a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
-				  </li>
-				</ul>
-			  </div>
+			<div class="md:grid md:grid-cols-6 md:gap-8">
 			  <div class="col-span-3">
-				<h3 class="text-sm font-semibold leading-6 text-white">Company</h3>
+				<h1 class="font-semibold leading-6 text-white">Company</h1>
 				<ul role="list" class="mt-6 space-y-4">
 				  <li v-for="item in navigation.company" :key="item.name">
-					<a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
+					<a :href="item.href" class="text-sm leading-6 text-white hover:text-dark-yellow">{{ item.name }}</a>
 				  </li>
 				</ul>
 			  </div>
 			  <div class="mt-10 md:mt-0 col-span-3">
-				<h3 class="text-sm font-semibold leading-6 text-white">Legal</h3>
+				<h1 class=" font-semibold leading-6 text-white">Legal</h1>
 				<ul role="list" class="mt-6 space-y-4">
 				  <li v-for="item in navigation.legal" :key="item.name">
-					<a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
+					<a :href="item.href" class="text-sm leading-6 text-white hover:text-dark-yellow">{{ item.name }}</a>
 				  </li>
 				</ul>
 			  </div>
@@ -43,7 +34,7 @@
 		  </div>
 		</div>
 		<div class="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-		  <p class="text-xs leading-5 text-gray-400">&copy; 2020 Your Company, Inc. All rights reserved.</p>
+		  <p class="text-xs leading-5 text-light-gray">&copy; {{getCurrentYear()}} Your Company, Inc. All rights reserved.</p>
 		</div>
 	  </div>
 	</footer>
@@ -53,8 +44,6 @@
   import { defineComponent, h } from 'vue'
 
   const navigation = {
-
-
 	company: [
 	  { name: 'Hakkımızda', href: '#' },
 	  { name: 'Haberler', href: '#' },
@@ -94,4 +83,5 @@
 	  },
 	],
   }
+  const getCurrentYear = () => {return (new Date()).getFullYear()}
   </script>

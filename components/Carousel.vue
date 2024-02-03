@@ -1,27 +1,20 @@
-
-import type { NuxtImg } from '#build/components';
 <template>
-      <div>
-        <splide :options="options">
-        <splide-slide>
-            <h1>boo1</h1>
-           <img src="/placeholder.jpg" />
-        </splide-slide>
-        <splide-slide>
-            <h1>boo2</h1>
-            <img src="/placeholder.jpg" />
-        </splide-slide>
-        <splide-slide>
-            <h1>boo3</h1>
-			<img src="/placeholder.jpg" />
-        </splide-slide>
-        </splide>
-    </div>
-</template>
+	<div>
+	  <splide :options="options">
+		<splide-slide class="relative" v-for="item in data" :key="item.id">
+		  <h1 class="absolute text-white bottom-20 left-0 text-3xl">{{ item.header }}</h1>
+		  <img :src="item.url" />
+		</splide-slide>
+	  </splide>
+	</div>
+  </template>
 
-<script setup>
-import { ref } from 'vue';
-const options = ref({
+  <script setup>
+  import { ref, onMounted } from 'vue';
+  import { getFirestore, collection, getDocs } from "firebase/firestore";
+
+  const data = ref([]);
+  const options = ref({
 	type: 'loop',
 	perPage: 1,
 	autoplay: true,
@@ -33,17 +26,34 @@ const options = ref({
 	interval: 3000,
 	lazyLoad: 'nearby',
 	breakpoints: {
-		640: {
-			perPage: 1,
-		},
-		768: {
-			perPage: 1,
-		},
-		1024: {
-			perPage: 1,
-		},
+	  640: {
+		perPage: 1,
+	  },
+	  768: {
+		perPage: 1,
+	  },
+	  1024: {
+		perPage: 1,
+	  },
 	},
-});
-</script>
+  });
 
-<style lang="scss" scoped></style>
+  const fetchData = async () => {
+	const db = getFirestore();
+	const q = collection(db, "Carousel");
+	const querySnapshot = await getDocs(q);
+	const fetchedData = querySnapshot.docs.map((doc) => ({
+	  id: doc.id,
+	  ...doc.data(),
+	}));
+	return fetchedData;
+  };
+
+  onMounted(async () => {
+	data.value = await fetchData();
+  });
+  </script>
+
+  <style  scoped>
+  /* Add your custom styles here */
+  </style>

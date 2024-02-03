@@ -114,7 +114,6 @@ const fetchData = async () => {
 const data = ref([]);
 onMounted(async () => {
   data.value = await fetchData();
-  console.log(data.value);
 });
 </script>
 

@@ -6,7 +6,7 @@
       >
         <img
           class="absolute inset-0 h-full w-full object-cover brightness-150 saturate-0"
-          src="https://images.unsplash.com/photo-1601381718415-a05fb0a261f3?ixid=MXwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODl8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1216&q=80"
+          src="/tiyatro-gunu.jpg"
           alt=""
         />
         <div class="absolute inset-0 bg-gray-900/90 mix-blend-multiply" />

@@ -9,7 +9,7 @@
       <div
         class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8"
       >
-        <a v-for="play in data" :key="play.id" href="" class="group">
+        <a v-for="play in data" :key="play.id" :href="play.link" target="_blank" class="group">
           <div
             class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg sm:aspect-h-3 sm:aspect-w-2"
           >

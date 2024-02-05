@@ -13,8 +13,8 @@
               >
                 <div v-if="!item.icon && item.logo" class="flex-shrink-0">
                   <img
-                    class="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    class="h-12 w-auto"
+                    src="/logo.jpg"
                     alt="Your Company"
                   />
                 </div>

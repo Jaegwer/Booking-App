@@ -16,6 +16,7 @@ export default {
 			'yellow':'#C7AD08',
 			'dark-yellow':'#FFDC00',
 			'light-gray':'#9B9B9B',
+			'blue':'#056aa8'
 		}
 	},
   },

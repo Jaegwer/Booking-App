@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.fc-toolbar{
+	color: white !important;
+	display: flex !important;
+	justify-content: center !important;
+}
+.fc-view-harness{
+	background-color: #f3f4f6 !important;
+	margin-right: 2.5rem;
+	margin-left: 2.5rem;
+}

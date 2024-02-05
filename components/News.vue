@@ -11,12 +11,6 @@
         v-for="post in featuredPosts"
         class="mx-auto w-full max-w-2xl lg:mx-0 lg:max-w-lg"
       >
-        <time
-          :datetime="post.date"
-          class="block text-sm leading-6 text-light-gray"
-          >{{ formatTimestamp(post.date) }}</time
-        >
-
         <div
           class="mt-4 flex flex-col justify-between gap-6 sm:mt-8 sm:flex-row-reverse sm:gap-8 lg:mt-4 lg:flex-col"
         >
@@ -27,7 +21,12 @@
               class="rounded-md flex-none bg-gray-50"
             />
           </div>
-          <p class="mt-4 text-lg leading-8 text-white">
+          <time
+            :datetime="post.date"
+            class="block text-sm leading-6 text-light-gray"
+            >{{ formatTimestamp(post.date) }}</time
+          >
+          <p class=" text-lg leading-8 text-white">
             {{ post.content }}
           </p>
         </div>
@@ -41,13 +40,7 @@
             :key="post.id"
             class="py-12"
           >
-            <div class="group relative max-w-xl">
-              <time
-                :datetime="post.datetime"
-                class="block text-sm leading-6 text-light-gray"
-                >{{ formatTimestamp(post.date) }}</time
-              >
-            </div>
+            <div class="group relative max-w-xl"></div>
             <div class="mt-4 flex">
               <img
                 :src="post.url"
@@ -56,6 +49,11 @@
               />
               <p class="mt-2 text-lg text-white group-hover:text-gray-600">
                 <span class="a" />
+                <time
+                  :datetime="post.datetime"
+                  class="block text-sm leading-6 text-light-gray"
+                  >{{ formatTimestamp(post.date) }}</time
+                >
                 {{ post.content }}
               </p>
             </div>
